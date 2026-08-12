@@ -458,3 +458,9 @@
 		min-height: 64px;
 	}
 }
+
+.mnf-headline, .aik-post-card h3, .entry-title h3, h3.entry-title, h3.post-title {
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+}
+
