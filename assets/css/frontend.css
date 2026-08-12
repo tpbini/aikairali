@@ -625,3 +625,12 @@ body.aik-drawer-open {
     background-color: #f8fafc;
 }
 
+/* Completely hide old inline nav bar on mobile screens */
+@media (max-width: 868px) {
+    body .aikairali-nav-bar,
+    body .aikairali-nav-bar.active {
+        display: none !important;
+    }
+}
+
+
