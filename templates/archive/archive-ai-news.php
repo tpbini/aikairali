@@ -163,58 +163,86 @@ function aikairali_render_category_section_block( $cat_info ) {
 			</a>
 		</div>
 
-		<!-- 3-Column Category Row Layout (Feature + 2x2 Grid + Right Sidebar Ad) -->
-		<div class="ai-cat-grid-layout" style="display: flex; gap: 24px; flex-wrap: wrap;">
+		<!-- 3-Column Category Row Layout matching user reference image -->
+		<div class="ai-cat-grid-layout" style="display: flex; gap: 28px; flex-wrap: wrap; align-items: flex-start;">
 
-			<!-- 1. LEFT FEATURE CARD (~33% width) -->
-			<div class="ai-cat-feature-col" style="flex: 1.1; min-width: 280px;">
-				<article class="ai-cat-feature-card" style="background: #ffffff; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; height: 100%;">
-					<a href="<?php echo esc_url( $feature_post['link'] ); ?>" style="display: block; width: 100%; aspect-ratio: 16/10; overflow: hidden; border-radius: 12px; background: #f1f5f9; margin-bottom: 14px;">
-						<img src="<?php echo esc_url( $feature_post['image'] ); ?>" alt="<?php echo esc_attr( $feature_post['title'] ); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease;" class="ai-zoom-img" />
-					</a>
-					<div style="display: flex; flex-direction: column; flex-grow: 1;">
-						<h3 style="font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0; line-height: 1.35;">
-							<a href="<?php echo esc_url( $feature_post['link'] ); ?>" style="color: #0f172a; text-decoration: none; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;" class="ai-news-title-link"><?php echo esc_html( $feature_post['title'] ); ?></a>
-						</h3>
-						<div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 11px;">
-							<a href="<?php echo esc_url( $cat_link ); ?>" style="font-weight: 800; color: #2563eb; text-transform: uppercase; text-decoration: none; letter-spacing: 0.04em;">
-								<?php echo esc_html( mb_strtoupper( $cat_name, 'UTF-8' ) ); ?>
-							</a>
-							<button type="button" aria-label="Bookmark" style="background: none; border: none; padding: 0; cursor: pointer; color: #cbd5e1;">
-								<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
-							</button>
-						</div>
+			<!-- 1. LEFT FEATURE COLUMN (~36% width) -->
+			<div class="ai-cat-feature-col" style="flex: 1.2; min-width: 290px; box-sizing: border-box;">
+				<?php $col1_hero = $posts[0]; $col1_sub = array_slice( $posts, 1, 3 ); ?>
+				<article style="margin-bottom: 20px;">
+					<div style="font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
+						<?php echo esc_html( mb_strtoupper( $cat_name, 'UTF-8' ) ); ?>
 					</div>
+					<h3 style="font-size: 1.35rem; font-weight: 800; line-height: 1.3; color: #0f172a; margin: 0 0 12px 0;">
+						<a href="<?php echo esc_url( $col1_hero['link'] ); ?>" style="color: #0f172a; text-decoration: none;" class="ai-news-title-link"><?php echo esc_html( $col1_hero['title'] ); ?></a>
+					</h3>
+					<a href="<?php echo esc_url( $col1_hero['link'] ); ?>" style="display: block; width: 100%; aspect-ratio: 16/10; overflow: hidden; border-radius: 10px; background: #f1f5f9; margin-bottom: 12px;">
+						<img src="<?php echo esc_url( $col1_hero['image'] ); ?>" alt="<?php echo esc_attr( $col1_hero['title'] ); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease;" class="ai-zoom-img" />
+					</a>
+					<p style="font-size: 0.925rem; color: #475569; line-height: 1.5; margin: 0 0 8px 0;">
+						<?php echo esc_html( $col1_hero['excerpt'] ?? wp_trim_words( $col1_hero['title'], 18, '...' ) ); ?>
+					</p>
+					<div style="font-size: 11px; color: #94a3b8; font-weight: 500;">4 min read</div>
 				</article>
-			</div>
 
-			<!-- 2. CENTER 2x2 SMALL GRID (~42% width) -->
-			<div class="ai-cat-center-col" style="flex: 1.4; min-width: 300px;">
-				<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-					<?php foreach ( $grid_posts as $g_item ) : ?>
-						<article class="ai-cat-small-card" style="display: flex; flex-direction: column;">
-							<a href="<?php echo esc_url( $g_item['link'] ); ?>" style="display: block; width: 100%; aspect-ratio: 16/10; overflow: hidden; border-radius: 10px; background: #f1f5f9; margin-bottom: 10px;">
-								<img src="<?php echo esc_url( $g_item['image'] ); ?>" alt="<?php echo esc_attr( $g_item['title'] ); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease;" class="ai-zoom-img" />
-							</a>
-							<h4 style="font-size: 0.875rem; font-weight: 700; margin: 0 0 8px 0; line-height: 1.35; min-height: 38px;">
-								<a href="<?php echo esc_url( $g_item['link'] ); ?>" style="color: #0f172a; text-decoration: none; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;" class="ai-news-title-link"><?php echo esc_html( $g_item['title'] ); ?></a>
-							</h4>
-							<div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 11px;">
-								<a href="<?php echo esc_url( $cat_link ); ?>" style="font-weight: 800; color: #2563eb; text-transform: uppercase; text-decoration: none; letter-spacing: 0.04em;">
-									<?php echo esc_html( mb_strtoupper( $cat_name, 'UTF-8' ) ); ?>
-								</a>
-								<button type="button" aria-label="Bookmark" style="background: none; border: none; padding: 0; cursor: pointer; color: #cbd5e1;">
-									<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
-								</button>
+				<!-- Sub-items below Left Hero -->
+				<div style="border-top: 1px solid #e2e8f0; padding-top: 16px;">
+					<?php foreach ( $col1_sub as $sub_item ) : ?>
+						<article style="padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid #f1f5f9;">
+							<div style="font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">
+								<?php echo esc_html( mb_strtoupper( $cat_name, 'UTF-8' ) ); ?>
 							</div>
+							<h4 style="font-size: 0.95rem; font-weight: 700; line-height: 1.35; margin: 0 0 4px 0;">
+								<a href="<?php echo esc_url( $sub_item['link'] ); ?>" style="color: #0f172a; text-decoration: none;" class="ai-news-title-link"><?php echo esc_html( $sub_item['title'] ); ?></a>
+							</h4>
+							<div style="font-size: 11px; color: #94a3b8; font-weight: 500;">2 min read</div>
 						</article>
 					<?php endforeach; ?>
 				</div>
 			</div>
 
-			<!-- 3. RIGHT SIDEBAR AD BOX (~25% width) -->
-			<div class="ai-cat-ad-col" style="width: 260px; min-width: 240px; box-sizing: border-box;">
-				<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px; text-align: center; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center;">
+			<!-- 2. CENTER LIST & THUMBNAILS COLUMN (~38% width) -->
+			<div class="ai-cat-center-col" style="flex: 1.3; min-width: 300px; box-sizing: border-box;">
+				<?php $col2_text = array_slice( $posts, 0, 3 ); $col2_thumb = array_slice( $posts, 3, 2 ); ?>
+				<!-- Text-Only List Items -->
+				<div>
+					<?php foreach ( $col2_text as $t_item ) : ?>
+						<article style="padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0;">
+							<div style="font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">
+								<?php echo esc_html( mb_strtoupper( $cat_name, 'UTF-8' ) ); ?>
+							</div>
+							<h4 style="font-size: 1.05rem; font-weight: 700; line-height: 1.35; margin: 0 0 6px 0;">
+								<a href="<?php echo esc_url( $t_item['link'] ); ?>" style="color: #0f172a; text-decoration: none;" class="ai-news-title-link"><?php echo esc_html( $t_item['title'] ); ?></a>
+							</h4>
+							<div style="font-size: 11px; color: #94a3b8; font-weight: 500;">3 min read</div>
+						</article>
+					<?php endforeach; ?>
+				</div>
+
+				<!-- Small Right-Thumbnail List Items -->
+				<div>
+					<?php foreach ( $col2_thumb as $th_item ) : ?>
+						<article style="display: flex; gap: 14px; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; align-items: flex-start;">
+							<div style="flex: 1; min-width: 0;">
+								<div style="font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">
+									<?php echo esc_html( mb_strtoupper( $cat_name, 'UTF-8' ) ); ?>
+								</div>
+								<h4 style="font-size: 0.95rem; font-weight: 700; line-height: 1.35; margin: 0 0 6px 0;">
+									<a href="<?php echo esc_url( $th_item['link'] ); ?>" style="color: #0f172a; text-decoration: none;" class="ai-news-title-link"><?php echo esc_html( $th_item['title'] ); ?></a>
+								</h4>
+								<div style="font-size: 11px; color: #94a3b8; font-weight: 500;">3 min read</div>
+							</div>
+							<a href="<?php echo esc_url( $th_item['link'] ); ?>" style="display: block; width: 88px; height: 64px; min-width: 88px; border-radius: 8px; overflow: hidden; background: #f1f5f9; flex-shrink: 0;">
+								<img src="<?php echo esc_url( $th_item['image'] ); ?>" alt="<?php echo esc_attr( $th_item['title'] ); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease;" class="ai-zoom-img" />
+							</a>
+						</article>
+					<?php endforeach; ?>
+				</div>
+			</div>
+
+			<!-- 3. RIGHT SIDEBAR ADVERTISEMENT COLUMN (~26% width) -->
+			<div class="ai-cat-ad-col" style="width: 270px; min-width: 250px; box-sizing: border-box;">
+				<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px; text-align: center; box-sizing: border-box; position: sticky; top: 90px;">
 					<div style="font-size: 9px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">
 						ADVERTISEMENT
 					</div>

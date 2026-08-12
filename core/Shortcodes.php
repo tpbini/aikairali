@@ -36,6 +36,10 @@ class Shortcodes {
 		// AI Tutorial Videos Carousel
 		add_shortcode( 'aikairali_videos_carousel', [ $this, 'render_videos_carousel' ] );
 		add_shortcode( 'ai_videos_carousel', [ $this, 'render_videos_carousel' ] );
+
+		// 3-Column AI News Layout with Advertisement Slot
+		add_shortcode( 'aikairali_news_grid', [ $this, 'render_news_grid' ] );
+		add_shortcode( 'ai_news_grid', [ $this, 'render_news_grid' ] );
 	}
 
 	/**
@@ -96,6 +100,29 @@ class Shortcodes {
 
 		ob_start();
 		TemplateLoader::get_template_part( 'home-ai-videos-carousel', '', $atts );
+		return ob_get_clean();
+	}
+
+	/**
+	 * Render the 3-Column AI News layout with Advertisement slot.
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @return string HTML output.
+	 */
+	public function render_news_grid( $atts = [] ): string {
+		$atts = shortcode_atts( [
+			'limit'    => 9,
+			'cat_slug' => '',
+			'ad_image' => '',
+			'ad_link'  => '#',
+			'ad_code'  => '',
+		], $atts, 'aikairali_news_grid' );
+
+		// Enqueue frontend styles
+		wp_enqueue_style( 'aikairali-portal-frontend' );
+
+		ob_start();
+		TemplateLoader::get_template_part( 'home-ai-news-grid', '', $atts );
 		return ob_get_clean();
 	}
 }
