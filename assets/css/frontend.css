@@ -459,7 +459,7 @@
 	}
 }
 
-.mnf-headline, .aik-post-card h3, .entry-title h3, h3.entry-title, h3.post-title {
+body .mnf-headline, body .aik-post-card h3, body .entry-title h3, body h3.entry-title, body h3.post-title {
   font-size: 1.1rem !important;
   font-weight: 500 !important;
 }

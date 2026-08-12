@@ -3,7 +3,7 @@
  * Plugin Name:       AIKairali Portal
  * Plugin URI:        https://aikairali.org/portal
  * Description:       Enterprise-grade modular plugin for AI directory, learning portal, models, jobs, courses, and prompts.
- * Version:           1.0.0
+ * Version:           1.0.2
  * Author:            AIKairali Team
  * Author URI:        https://aikairali.org
  * License:           GPL-2.0+
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define Plugin Constants.
-define( 'AIKAIRALI_PORTAL_VERSION', '1.0.1' );
+define( 'AIKAIRALI_PORTAL_VERSION', '1.0.2' );
 define( 'AIKAIRALI_PORTAL_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AIKAIRALI_PORTAL_URL', plugin_dir_url( __FILE__ ) );
 define( 'AIKAIRALI_PORTAL_BASENAME', plugin_basename( __FILE__ ) );
