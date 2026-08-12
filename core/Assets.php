@@ -20,6 +20,7 @@ class Assets {
 	public function __construct( Loader $loader ) {
 		$loader->add_action( 'wp_enqueue_scripts', $this, 'enqueue_frontend_assets' );
 		$loader->add_action( 'admin_enqueue_scripts', $this, 'enqueue_admin_assets' );
+		$loader->add_action( 'wp_footer', $this, 'render_mobile_drawer' );
 	}
 
 	/**
@@ -104,5 +105,50 @@ class Assets {
 				'nonce'    => wp_create_nonce( 'aikairali_portal_admin_nonce' ),
 			]
 		);
+	}
+
+	/**
+	 * Render mobile off-canvas drawer markup in wp_footer.
+	 */
+	public function render_mobile_drawer(): void {
+		if ( is_admin() ) {
+			return;
+		}
+		?>
+		<!-- Mobile Navigation Off-Canvas Drawer (Plugin Rendered) -->
+		<div class="aik-mobile-drawer-overlay" id="aikDrawerOverlay"></div>
+		<div class="aik-mobile-drawer" id="aikMobileDrawer">
+			<div class="aik-drawer-header">
+				<div class="aik-drawer-brand">
+					<a href="/" title="AiKairali Home">
+						<img src="/wp-content/themes/twentytwentyfive/assets/images/logo.jpg" alt="AiKairali" class="aik-drawer-logo">
+					</a>
+				</div>
+				<button type="button" class="aik-drawer-close" id="aikDrawerClose" aria-label="Close Menu">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+				</button>
+			</div>
+			<div class="aik-drawer-divider"></div>
+			<div class="aik-drawer-body">
+				<!-- Mobile Drawer Search Bar -->
+				<form role="search" method="get" class="aik-drawer-search-form" action="/">
+					<div class="aik-drawer-search-wrap">
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="aik-drawer-search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+						<input type="search" class="aik-drawer-search-input" placeholder="Search..." name="s" autocomplete="off" />
+					</div>
+				</form>
+
+				<ul class="aik-drawer-menu">
+					<li><a href="/">Home</a></li>
+					<li><a href="/ai-news/">AI News</a></li>
+					<li><a href="/tutorials/">Tutorials</a></li>
+					<li><a href="/ai-tools/">AI tools</a></li>
+					<li><a href="/prompts/">Prompts</a></li>
+					<li><a href="/courses/">Courses</a></li>
+					<li><a href="/videos/">Videos</a></li>
+				</ul>
+			</div>
+		</div>
+		<?php
 	}
 }
