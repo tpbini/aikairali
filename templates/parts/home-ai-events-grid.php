@@ -86,7 +86,7 @@ $locate_part = function( $file, $args = [] ) {
 	.aik-section-title {
 		font-family: 'Archivo', sans-serif;
 		font-size: 15px;
-		font-weight: 800;
+		font-weight: 600;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
 		color: #0f172a;
