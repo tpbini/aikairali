@@ -23,6 +23,7 @@ class TemplateLoader {
 		$loader->add_filter( 'category_template', $this, 'locate_category_template' );
 		$loader->add_filter( 'taxonomy_template', $this, 'locate_taxonomy_template' );
 		$loader->add_filter( 'page_template', $this, 'locate_page_template' );
+		$loader->add_filter( 'search_template', $this, 'locate_search_template' );
 	}
 
 	/**
@@ -271,5 +272,25 @@ class TemplateLoader {
 		if ( $located ) {
 			include $located;
 		}
+	}
+
+	/**
+	 * Locate search template override.
+	 *
+	 * @param string $template Standard located template path.
+	 * @return string Modified template path.
+	 */
+	public function locate_search_template( string $template ): string {
+		$theme_override = locate_template( [ 'search.php', 'aikairali-portal/search.php' ] );
+		if ( $theme_override ) {
+			return $theme_override;
+		}
+
+		$plugin_search = AIKAIRALI_PORTAL_PATH . 'templates/search.php';
+		if ( file_exists( $plugin_search ) ) {
+			return $plugin_search;
+		}
+
+		return $template;
 	}
 }
