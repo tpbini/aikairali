@@ -1,0 +1,460 @@
+/* AIKairali Portal Frontend Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@400;500;600;700;800&family=Archivo:wght@500;600;700;800&display=swap');
+
+.aikairali-search-results {
+	margin-top: 15px;
+}
+
+/* ==========================================
+   AI Home Grid Layout Component
+   ========================================== */
+.aik-portal-home-grid {
+	width: 100%;
+	max-width: 1240px;
+	margin: 0 auto;
+	padding: 24px 16px 40px;
+	box-sizing: border-box;
+	font-family: "Anek Malayalam", sans-serif;
+	color: #1a1a1a;
+	background: #ffffff;
+}
+
+.aik-portal-home-grid * {
+	box-sizing: border-box;
+}
+
+.aik-portal-container {
+	display: grid;
+	grid-template-columns: 1fr 1.25fr 1fr;
+	gap: 32px;
+	align-items: start;
+}
+
+/* --- Section Headers --- */
+.aik-section-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding-bottom: 12px;
+	margin-bottom: 12px;
+	border-bottom: 2px solid #f1f5f9;
+}
+
+.aik-pill-indicator {
+	width: 4px;
+	height: 16px;
+	background: linear-gradient(180deg, #2563eb 0%, #dc2626 100%);
+	border-radius: 2px;
+	display: inline-block;
+	flex-shrink: 0;
+}
+
+.aik-section-title {
+	font-family: 'Archivo', sans-serif;
+	font-size: 15px;
+	font-weight: 800;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: #0f172a;
+	margin: 0;
+	line-height: 1;
+}
+
+/* --- Column Wrappers --- */
+.aik-column {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.aik-list-wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	flex-grow: 1;
+}
+
+/* --- Horizontal List Row Items (Tools & Books) --- */
+.aik-row-item {
+	display: flex;
+	gap: 14px;
+	padding: 14px 0;
+	border-bottom: 1px solid #e2e8f0;
+	align-items: flex-start;
+	transition: background-color 0.2s ease;
+}
+
+.aik-row-item:last-child {
+	border-bottom: none;
+}
+
+.aik-row-thumb-link {
+	display: block;
+	flex-shrink: 0;
+	width: 76px;
+	height: 76px;
+	border-radius: 8px;
+	overflow: hidden;
+	background: #f1f5f9;
+}
+
+.aik-row-thumb {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	border-radius: 8px;
+	transition: transform 0.3s ease;
+}
+
+.aik-row-item:hover .aik-row-thumb {
+	transform: scale(1.05);
+}
+
+.aik-row-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex-grow: 1;
+	min-height: 76px;
+}
+
+.aik-row-title {
+	font-family: "Anek Malayalam", sans-serif;
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1.38;
+	margin: 0 0 8px 0;
+}
+
+.aik-row-title a {
+	color: #0f172a;
+	text-decoration: none;
+	transition: color 0.2s ease;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.aik-row-title a:hover {
+	color: #dc2626;
+}
+
+.aik-row-cat {
+	font-family: 'Archivo', sans-serif;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: #64748b;
+	letter-spacing: 0.05em;
+	margin-top: auto;
+}
+
+/* --- 2x2 Grid Items (AI Courses) --- */
+.aik-grid-2x2 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 14px;
+	flex-grow: 1;
+}
+
+.aik-card-item {
+	position: relative;
+	border-radius: 10px;
+	overflow: hidden;
+	aspect-ratio: 1 / 1;
+	background: #0f172a;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.aik-card-link-mask {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+}
+
+.aik-card-bg {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.4s ease;
+	z-index: 0;
+}
+
+.aik-card-item:hover .aik-card-bg {
+	transform: scale(1.08);
+}
+
+.aik-card-overlay {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.45) 55%, rgba(0, 0, 0, 0) 100%);
+	z-index: 1;
+	pointer-events: none;
+}
+
+.aik-card-content {
+	position: relative;
+	z-index: 2;
+	padding: 12px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.aik-card-title {
+	font-family: "Anek Malayalam", sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.35;
+	margin: 0 0 6px 0;
+}
+
+.aik-card-title a {
+	color: #ffffff;
+	text-decoration: none;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	transition: color 0.2s ease;
+}
+
+.aik-card-item:hover .aik-card-title a {
+	color: #93c5fd;
+}
+
+.aik-card-meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 6px;
+}
+
+.aik-card-cat {
+	font-family: 'Archivo', sans-serif;
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: #e2e8f0;
+	letter-spacing: 0.05em;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.aik-card-video-icon {
+	color: #ffffff;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0.9;
+}
+
+/* --- Column Footers --- */
+.aik-column-footer {
+	margin-top: 18px;
+	padding-top: 8px;
+	text-align: right;
+}
+
+.aik-more-link {
+	font-family: 'Archivo', sans-serif;
+	font-size: 12px;
+	font-weight: 800;
+	text-transform: uppercase;
+	color: #0f172a;
+	text-decoration: none;
+	letter-spacing: 0.06em;
+	transition: color 0.2s ease;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.aik-more-link:hover {
+	color: #dc2626;
+}
+
+.aik-more-link .aik-arrow {
+	color: #dc2626;
+	font-weight: 900;
+}
+
+.aik-no-posts {
+	color: #94a3b8;
+	font-size: 13px;
+	padding: 12px 0;
+	font-style: italic;
+}
+
+/* --- Hero Featured Card (AI Events Column 1) --- */
+.aik-hero-card {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.aik-hero-thumb-link {
+	display: block;
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	border-radius: 10px;
+	overflow: hidden;
+	margin-bottom: 14px;
+	background: #f1f5f9;
+}
+
+.aik-hero-thumb {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	transition: transform 0.35s ease;
+}
+
+.aik-hero-card:hover .aik-hero-thumb {
+	transform: scale(1.04);
+}
+
+.aik-hero-title {
+	font-family: "Anek Malayalam", sans-serif;
+	font-size: 18px;
+	font-weight: 800;
+	line-height: 1.38;
+	margin: 0 0 8px 0;
+}
+
+.aik-hero-title a {
+	color: #0f172a;
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.aik-hero-title a:hover {
+	color: #dc2626;
+}
+
+.aik-hero-cat {
+	font-family: 'Archivo', sans-serif;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: #2563eb;
+	letter-spacing: 0.05em;
+}
+
+/* --- Top-Image 2x2 Grid Cards (AI Prompts Column 2) --- */
+.aik-topimg-grid-2x2 {
+	display: grid !important;
+	grid-template-columns: repeat(2, 1fr) !important;
+	gap: 18px 16px !important;
+	width: 100% !important;
+	flex-grow: 1;
+}
+
+.aik-topimg-card {
+	display: flex !important;
+	flex-direction: column !important;
+	width: 100% !important;
+}
+
+.aik-topimg-thumb-link {
+	display: block !important;
+	width: 100% !important;
+	aspect-ratio: 16 / 10;
+	border-radius: 8px;
+	overflow: hidden;
+	margin-bottom: 10px;
+	background: #f1f5f9;
+}
+
+.aik-topimg-thumb {
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover !important;
+	display: block !important;
+	transition: transform 0.3s ease;
+}
+
+.aik-topimg-card:hover .aik-topimg-thumb {
+	transform: scale(1.05);
+}
+
+.aik-topimg-title {
+	font-family: "Anek Malayalam", sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.38;
+	margin: 0 0 6px 0;
+}
+
+.aik-topimg-title a {
+	color: #0f172a;
+	text-decoration: none;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	transition: color 0.2s ease;
+}
+
+.aik-topimg-title a:hover {
+	color: #dc2626;
+}
+
+.aik-topimg-cat {
+	font-family: 'Archivo', sans-serif;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: #2563eb;
+	letter-spacing: 0.05em;
+}
+
+/* --- Responsive Breakpoints --- */
+@media (max-width: 1024px) {
+	.aik-portal-container {
+		grid-template-columns: 1fr;
+		gap: 36px;
+	}
+	
+	.aik-column {
+		padding-bottom: 16px;
+		border-bottom: 1px solid #e2e8f0;
+	}
+	
+	.aik-column:last-child {
+		border-bottom: none;
+	}
+}
+
+@media (max-width: 480px) {
+	.aik-grid-2x2 {
+		gap: 10px;
+	}
+	
+	.aik-card-content {
+		padding: 8px;
+	}
+	
+	.aik-card-title {
+		font-size: 13px;
+	}
+	
+	.aik-row-thumb-link {
+		width: 64px;
+		height: 64px;
+	}
+	
+	.aik-row-content {
+		min-height: 64px;
+	}
+}

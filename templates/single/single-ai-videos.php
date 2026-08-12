@@ -1,0 +1,182 @@
+<?php
+/**
+ * Single Template for AI Videos.
+ * Matching the exact Portal Detail Layout.
+ *
+ * @package AIKairali_Portal
+ */
+
+get_header();
+
+// ACF Fields
+$video_url      = get_field( 'video_url' );
+$youtube_id     = get_field( 'youtube_id' );
+$duration       = get_field( 'duration' );
+$channel_name   = get_field( 'channel_name' );
+$published_date = get_field( 'published_date' );
+$key_points     = get_field( 'key_points' );
+?>
+
+<div class="aikairali-detail-container" style="max-width: 1200px; margin: 0 auto; padding: 40px 20px; font-family: system-ui, -apple-system, sans-serif;">
+	<?php while ( have_posts() ) : the_post(); ?>
+		
+		<!-- 1. Top Headline Header -->
+		<header style="margin-bottom: 30px; max-width: 900px;">
+			<h1 style="font-size: 2.2rem; font-weight: 800; line-height: 1.3; color: #0f172a; margin-bottom: 12px;">
+				<?php the_title(); ?>
+			</h1>
+			<div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; color: #64748b; border-bottom: 1px solid #e2e8f0; padding-bottom: 16px;">
+				<div>
+					<strong><?php echo esc_html( $channel_name ?: get_the_author() ); ?></strong>
+				</div>
+				<div>
+					<span>Last Updated: <?php echo esc_html( get_the_modified_date( 'd F Y, h:i A' ) ); ?></span>
+				</div>
+			</div>
+		</header>
+
+		<!-- 2. Main 2-Column Grid -->
+		<div style="display: grid; grid-template-columns: 2.2fr 1fr; gap: 48px;">
+			
+			<!-- Left Column: Main Content -->
+			<main>
+				<!-- Embed Video Player or Hero Featured Image -->
+				<?php if ( $youtube_id ) : ?>
+					<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 30px; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+						<iframe src="https://www.youtube.com/embed/<?php echo esc_attr( $youtube_id ); ?>" style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;" allowfullscreen></iframe>
+					</div>
+				<?php elseif ( has_post_thumbnail() ) : ?>
+					<div style="margin-bottom: 30px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+						<?php the_post_thumbnail( 'large', [ 'style' => 'width: 100%; height: auto; display: block;' ] ); ?>
+					</div>
+				<?php endif; ?>
+
+				<!-- Excerpt / Intro -->
+				<?php if ( has_excerpt() ) : ?>
+					<div style="font-size: 1.125rem; line-height: 1.8; color: #334155; margin-bottom: 30px;">
+						<?php the_excerpt(); ?>
+					</div>
+				<?php endif; ?>
+
+				<!-- Structured Specification Box -->
+				<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin: 32px 0;">
+					<div style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">
+						VIDEO SPECIFICATIONS
+					</div>
+					<h2 style="font-size: 1.75rem; font-weight: 800; color: #0f172a; margin: 0 0 20px 0;">
+						<?php echo esc_html( $duration ? 'Duration: ' . $duration : 'Video Details' ); ?>
+					</h2>
+
+					<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; font-size: 0.925rem;">
+						<?php if ( $channel_name ) : ?>
+						<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
+							<span style="color: #64748b;">Channel:</span>
+							<strong><?php echo esc_html( $channel_name ); ?></strong>
+						</div>
+						<?php endif; ?>
+
+						<?php if ( $duration ) : ?>
+						<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
+							<span style="color: #64748b;">Duration:</span>
+							<strong><?php echo esc_html( $duration ); ?></strong>
+						</div>
+						<?php endif; ?>
+					</div>
+
+					<?php if ( $video_url ) : ?>
+						<div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
+							<a href="<?php echo esc_url( $video_url ); ?>" target="_blank" rel="noopener" style="display: inline-block; background: #dc2626; color: #ffffff; font-weight: 700; padding: 10px 22px; border-radius: 8px; text-decoration: none;">
+								Watch on YouTube →
+							</a>
+						</div>
+					<?php endif; ?>
+				</div>
+
+				<!-- Article Body Content -->
+				<div class="entry-content" style="font-size: 1.05rem; line-height: 1.8; color: #334155; margin: 30px 0;">
+					<?php the_content(); ?>
+				</div>
+
+				<!-- Bottom Section: LATEST FROM THIS SECTION -->
+				<section style="margin-top: 48px; padding-top: 32px; border-top: 1px solid #e2e8f0;">
+					<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+						<h3 style="font-size: 1rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #0f172a; margin: 0;">
+							LATEST FROM THIS SECTION
+						</h3>
+						<a href="<?php echo esc_url( get_post_type_archive_link( get_post_type() ) ); ?>" style="font-size: 0.85rem; font-weight: 700; color: #2563eb; text-decoration: none;">
+							View All →
+						</a>
+					</div>
+					<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+						<?php
+						$related = new WP_Query([
+							'post_type'      => get_post_type(),
+							'posts_per_page' => 3,
+							'post__not_in'   => [ get_the_ID() ]
+						]);
+						while ( $related->have_posts() ) : $related->the_post();
+						?>
+							<article style="border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background: #fff;">
+								<?php if ( has_post_thumbnail() ) : ?>
+									<div style="height: 140px; overflow: hidden;">
+										<?php the_post_thumbnail( 'medium', [ 'style' => 'width:100%; height:100%; object-fit:cover;' ] ); ?>
+									</div>
+								<?php endif; ?>
+								<div style="padding: 14px;">
+									<span style="font-size: 10px; font-weight: 800; color: #2563eb; text-transform: uppercase;">
+										AI VIDEO
+									</span>
+									<h4 style="font-size: 0.9rem; font-weight: 700; margin: 6px 0 0 0; color: #0f172a; line-height: 1.4;">
+										<a href="<?php the_permalink(); ?>" style="color: inherit; text-decoration: none;"><?php the_title(); ?></a>
+									</h4>
+								</div>
+							</article>
+						<?php
+						endwhile;
+						wp_reset_postdata();
+						?>
+					</div>
+				</section>
+			</main>
+
+			<!-- Right Column: TRENDING NOW Sidebar -->
+			<aside>
+				<h3 style="font-size: 1.1rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #0f172a; border-bottom: 2px solid #0f172a; padding-bottom: 8px; margin: 0 0 20px 0;">
+					TRENDING NOW
+				</h3>
+				<div style="display: flex; flex-direction: column; gap: 18px;">
+					<?php
+					$trending = new WP_Query([
+						'post_type'      => 'any',
+						'posts_per_page' => 5,
+						'orderby'        => 'comment_count'
+					]);
+					while ( $trending->have_posts() ) : $trending->the_post();
+					?>
+						<article style="display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid #f1f5f9; padding-bottom: 14px;">
+							<div style="flex: 1;">
+								<span style="font-size: 10px; font-weight: 800; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 4px;">
+									NEWS | KERALA
+								</span>
+								<h4 style="font-size: 0.875rem; font-weight: 700; color: #0f172a; margin: 0; line-height: 1.4;">
+									<a href="<?php the_permalink(); ?>" style="color: inherit; text-decoration: none;"><?php the_title(); ?></a>
+								</h4>
+							</div>
+							<?php if ( has_post_thumbnail() ) : ?>
+								<div style="width: 72px; height: 72px; shrink: 0; border-radius: 6px; overflow: hidden;">
+									<?php the_post_thumbnail( 'thumbnail', [ 'style' => 'width:100%; height:100%; object-fit:cover;' ] ); ?>
+								</div>
+							<?php endif; ?>
+						</article>
+					<?php
+					endwhile;
+					wp_reset_postdata();
+					?>
+				</div>
+			</aside>
+		</div>
+
+	<?php endwhile; ?>
+</div>
+
+<?php get_footer(); ?>
